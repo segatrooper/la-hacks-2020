@@ -1,0 +1,25 @@
+from selenium.webdriver import Chrome
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.support.ui import WebDriverWait
+chrome_options = Options()
+chrome_options.add_experimental_option('prefs', {
+    "download": {
+        "prompt_for_download": False,
+        "default_directory"  : '../frontend/static/frontend/'
+    }
+    })
+browser = Chrome('D://Downloads/chromedriver/chromedriver.exe', chrome_options=chrome_options)
+browser.get(url='https://costco97.com/costco-tp-tracker/')
+
+try:
+    csv_button = WebDriverWait(browser, 30).until(
+            EC.presence_of_element_located((By.CLASS_NAME, 'button_csv'))
+        )
+    csv_button.send_keys(Keys.ENTER)
+    print('i pressed the button')
+    WebDriverWait(browser, 20)
+finally:
+    browser.close()

@@ -1,0 +1,16 @@
+
+import Tp from "./components/Counter";
+import Counter from "./components/Tp";
+import { render } from "react-dom";
+import React, { Components }from "react";
+
+function name(x) {
+	if (x === "main") {
+		console.log('main returned counter tag');
+		return <Counter />;
+	}
+	console.log("main returned tp tag");
+	return <Tp />;
+}
+
+render(name(document.currentScript.getAttribute("name")), document.getElementById("counter"));

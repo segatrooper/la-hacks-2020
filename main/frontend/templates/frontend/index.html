@@ -1,0 +1,66 @@
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>CARONA</title>
+		{% load static %}
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+		  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+		  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+	</head>
+	<body>
+		<nav class="navbar navbar-inverse">
+		  <div class="container-fluid">
+		    <div class="navbar-header">
+		      <a class="navbar-brand" href="#">Carona Watch</a>
+		    </div>
+		    <ul class="nav navbar-nav">
+			    <li class="active"><a href="{% url 'home' %}">Home</a></li>
+			    <li><a href="{% url 'tp' %}">Tp prices</a></li>
+		    </ul>
+		  </div>
+		</nav>
+		<div id='counter'>
+		{% if not form %}
+			<script src="{% static 'frontend/main.js' %}" name="{{ name }}"></script>
+		{% endif %}
+		</div>
+		<div id="counter">
+		
+		</div>
+		<div>
+		
+		{% if form %}
+		<a href="{% static 'costco.csv' %}">click here for the latest costco form</a>
+		<form method="POST" enctype="multipart/form-data"> {% csrf_token %}
+			{{ form.as_p }}
+			 <button type="submit" class="save btn btn-default">Save</button>
+		</form>
+		{% endif %}
+		{% if tp %}
+		<table class='table'>
+		<thead>
+		<th scope="col">Time</th>
+		<th scope="col">State</th>
+		<th scope="col">City</th>
+		<th scope="col">Supplies</th>
+		</thead>
+		<tbody>
+		{% for time, state, city, supplies in tp %}
+		{% if forloop.counter != 1 %}
+		<tr>
+		<th scope="col">{{time}}</th>
+		<td>{{state}}</td>
+		<td>{{city}}</td>
+		<td>{{supplies}}</td>
+		</tr>
+		{% endif %}
+		{% endfor %}
+		</tbody>
+		</table>
+		{% endif %}
+		</div>
+	</body>
+
+
+</html>
+
